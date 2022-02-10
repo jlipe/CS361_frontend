@@ -1,10 +1,21 @@
 import React, {useState} from 'react'
 import ResultPage from './ResultPage'
 
-const StockGame = ({stocks, potentialAnswers}) => {
+
+
+const StockGame = () => {
     const [currentStockIndex, setCurrentStockIndex] = useState(0)
     const [currentSelection, setCurrentSelection] = useState(null)
     const [nCorrect, setNCorrect] = useState(0)
+
+    const stocks = [
+      {price: "$194.42", date: "02/02/2022", company: "Microsoft"},
+      {price: "$52.31", date: "01/05/2022", company: "Netflix"},
+      {price: "$42.12", date: "02/01/2022", company: "Google"},
+      {price: "$2354.12", date: "01/03/2022", company: "Amazon"},
+    ]
+
+    const potentialAnswers = ["Microsoft", "Netflix", "Google", "Amazon"]
 
     if (currentStockIndex >= stocks.length) {
         return (

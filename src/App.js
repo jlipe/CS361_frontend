@@ -1,40 +1,52 @@
 import React, { useState } from 'react';
 import StockGame from './StockGame'
 import HeadlineGame from './HeadlineGame'
+import AboutPage from './AboutPage';
 
 
 
-const stockList = [
-  {price: "$194.42", date: "02/02/2022", company: "Microsoft"},
-  {price: "$52.31", date: "01/05/2022", company: "Netflix"},
-  {price: "$42.12", date: "02/01/2022", company: "Google"},
-  {price: "$2354.12", date: "01/03/2022", company: "Amazon"},
-];
+
 
 function App() {
   const [route, setRoute] = useState(null)
+
+  const goHome = () => {
+    if (window.confirm("Are you sure you want to go home? This will reset your game")) {
+      setRoute(null)
+    }
+  }
 
   if (!route) {
     return (
       <div>
         <button onClick={() => setRoute("stocks")}>Stock Game</button>
         <button onClick={() => setRoute("headlines")}>Headline Game</button>
+        <p>Click a button above to start a free game</p>
+        <button onClick={() => setRoute("about")}>About</button>
       </div>
     )
   }
   if (route === "stocks") {
     return (
       <div>
-        <button onClick={() => setRoute(null)}>Home</button>
-        <StockGame stocks={stockList} potentialAnswers={["Microsoft", "Netflix", "Google", "Amazon"]} />
+        <button onClick={() => goHome()}>Home</button>
+        <StockGame />
       </div>
     )
   }
   if (route === "headlines") {
     return (
       <div>
-        <button onClick={() => setRoute(null)}>Home</button>
+        <button onClick={() => goHome()}>Home</button>
         <HeadlineGame />
+      </div>
+    )
+  }
+  if (route === "about") {
+    return (
+      <div>
+        <button onClick={() => setRoute(null)}>Home</button>
+        <AboutPage />
       </div>
     )
   }
