@@ -1,33 +1,35 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import HeadlineOptions from './HeadlinesOptions'
 import HeadlineQuestion from './HeadlineQuestion'
 import ResultPage from './ResultPage'
 import axios from 'axios'
 
 const HeadlineGame = () => {
-  const [queryParams, setQueryParams] = useState(null)
+  const [options, setOptions] = useState({})
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(-1)
   const [headlines, setHeadlines] = useState([])
   const [nCorrect, setNCorrect] = useState(0)
   const [gameState, setGameState] = useState("options")
 
-  const handleOptionsSubmit = (options, articleLimit) => {
-    const commaSeperatedOptions = options.join(",")
-    setQueryParams({ sources: commaSeperatedOptions, limit: articleLimit})
-    setCurrentQuestionIndex(0)
+  const getHeadlines = async (params) => {
+    const response = await axios.get("https://s9goa8paxj.execute-api.us-east-1.amazonaws.com/headlines/quiz", { params: params })
+    const headlines = response.data
+    return headlines
   }
 
-  useEffect(() => {
-    if (!queryParams) {
-      return
-    }
+  const handleStartGame = async (options) => {
     setGameState("loading")
-    axios.get("https://s9goa8paxj.execute-api.us-east-1.amazonaws.com/headlines/quiz", { params: queryParams })
-      .then(response => {
-        setHeadlines(response.data.items)
-        setGameState("playing")
-      })
-  }, [queryParams])
+    setOptions(options)
+
+    const sources = options.sources.join(",")
+    const limit = options.limit
+    const queryParams = { sources, limit }
+    const headlines = await getHeadlines(queryParams)
+
+    setHeadlines(headlines)
+    setCurrentQuestionIndex(0)
+    setGameState("playing")
+  }
 
   const handleAnswerSubmit = (answer) => {
     if (answer === headlines[currentQuestionIndex].source) {
@@ -43,17 +45,15 @@ const HeadlineGame = () => {
     }
   }
 
-  const potentialAnswers = queryParams && queryParams.sources.split(",")
-
   return (
     <div>
       <h1>
         Headline Game
       </h1>
       {gameState === "loading" && <h3>Loading...</h3>}
-      {gameState === "options" && <HeadlineOptions handleOptionsSubmit={handleOptionsSubmit}/>}
+      {gameState === "options" && <HeadlineOptions handleOptionsSubmit={handleStartGame}/>}
       {gameState === "playing" && <div><h3>Question {currentQuestionIndex + 1} out of {headlines.length}</h3></div>}
-      {gameState === "playing" && <HeadlineQuestion headline={headlines[currentQuestionIndex]} potentialAnswers={potentialAnswers} onSubmit={handleAnswerSubmit} />}
+      {gameState === "playing" && <HeadlineQuestion headline={headlines[currentQuestionIndex]} potentialAnswers={options.sources} onSubmit={handleAnswerSubmit} />}
       {gameState === "results" && <ResultPage nAsked={headlines.length} nCorrect={nCorrect} />}
     </div>
   )

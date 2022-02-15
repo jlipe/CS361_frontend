@@ -14,6 +14,10 @@ const HeadlineQuestion = ({headline, potentialAnswers, onSubmit}) => {
 
   const handleSubmit = (event) => {
     event.preventDefault()
+    if (!currentSelection) {
+      alert("You need to select an option")
+      return
+    }
     setCurrentSelection(null)
     onSubmit(currentSelection)
   }

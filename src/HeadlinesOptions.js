@@ -26,9 +26,10 @@ const HeadlineOptions = ({handleOptionsSubmit}) => {
       alert("Article limit must be between 1 and 10")
       return
     }
+    const options = {"sources": selectedOptions, "limit": articleLimit }
+    handleOptionsSubmit(options)
     setArticleLimit(3)
     setSelectedOptions([])
-    handleOptionsSubmit(selectedOptions, articleLimit)
   }
 
   const additionalOptions = (
