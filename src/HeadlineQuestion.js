@@ -1,14 +1,12 @@
 import React, {useState} from 'react'
+import { Form, Button } from 'react-bootstrap'
 
 const HeadlineQuestion = ({headline, potentialAnswers, onSubmit}) => {
   const [currentSelection, setCurrentSelection] = useState(null)
 
   const renderedOptions = potentialAnswers.map(option => {
     return(
-      <label key={option}>
-        <input type="radio" value={option} name="option" onChange={() => setCurrentSelection(option)} checked={currentSelection === option} />
-        {option}
-      </label>
+      <Form.Check type="radio" value={option} label={option} onChange={() => setCurrentSelection(option)} checked={currentSelection === option} />
     )
   })
 
@@ -37,11 +35,13 @@ const HeadlineQuestion = ({headline, potentialAnswers, onSubmit}) => {
           {headline.headline}
         </i>
       </h2>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         {renderedOptions}
         <br />
-        <input type="submit" value="Check Answer" />
-      </form>
+        <Button variant="primary" type="submit">
+          Check Answer
+        </Button>
+      </Form>
     </div>
   )
 }

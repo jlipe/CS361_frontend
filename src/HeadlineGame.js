@@ -46,7 +46,7 @@ const HeadlineGame = () => {
   }
 
   return (
-    <div>
+    <>
       <h1>
         Headline Game
       </h1>
@@ -55,7 +55,7 @@ const HeadlineGame = () => {
       {gameState === "playing" && <div><h3>Question {currentQuestionIndex + 1} out of {headlines.length}</h3></div>}
       {gameState === "playing" && <HeadlineQuestion headline={headlines[currentQuestionIndex]} potentialAnswers={options.sources} onSubmit={handleAnswerSubmit} />}
       {gameState === "results" && <ResultPage nAsked={headlines.length} nCorrect={nCorrect} />}
-    </div>
+    </>
   )
 }
 

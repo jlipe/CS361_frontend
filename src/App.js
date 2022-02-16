@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import StockGame from './StockGame'
 import HeadlineGame from './HeadlineGame'
 import AboutPage from './AboutPage';
-
-
-
-
-
+import { Container, Button } from 'react-bootstrap'
 function App() {
   const [route, setRoute] = useState(null)
 
@@ -18,36 +14,36 @@ function App() {
 
   if (!route) {
     return (
-      <div>
-        <button onClick={() => setRoute("stocks")}>Stock Game</button>
-        <button onClick={() => setRoute("headlines")}>Headline Game</button>
+      <Container>
+        <Button variant="secondary" onClick={() => setRoute("stocks")}>Stock Game</Button>
+        <Button variant="secondary" onClick={() => setRoute("headlines")}>Headline Game</Button>
         <p>Click a button above to start a free game</p>
-        <button onClick={() => setRoute("about")}>About</button>
-      </div>
+        <Button variant="info" onClick={() => setRoute("about")}>About</Button>
+      </Container>
     )
   }
   if (route === "stocks") {
     return (
-      <div>
-        <button onClick={() => goHome()}>Home</button>
+      <Container>
+        <Button variant="danger" onClick={() => goHome()}>Home</Button>
         <StockGame />
-      </div>
+      </Container>
     )
   }
   if (route === "headlines") {
     return (
-      <div>
-        <button onClick={() => goHome()}>Home</button>
+      <Container>
+        <Button variant="danger" onClick={() => goHome()}>Home</Button>
         <HeadlineGame />
-      </div>
+      </Container>
     )
   }
   if (route === "about") {
     return (
-      <div>
-        <button onClick={() => setRoute(null)}>Home</button>
+      <Container>
+        <Button variant="secondary" onClick={() => setRoute(null)}>Home</Button>
         <AboutPage />
-      </div>
+      </Container>
     )
   }
 }

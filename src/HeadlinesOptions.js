@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 
 const HeadlineOptions = ({handleOptionsSubmit}) => {
   const [selectedOptions, setSelectedOptions] = useState([])
@@ -37,71 +38,71 @@ const HeadlineOptions = ({handleOptionsSubmit}) => {
       <h2>
           How many articles per site in the game (choose between 1 and 10):
       </h2>
-      <input
-      type="number"
-      id="articleLimit"
-      value={articleLimit}
-      onChange={(e) => setArticleLimit(e.target.value)}
+      <Form.Control
+        className="w-25"
+        type="number"
+        id="articleLimit"
+        value={articleLimit}
+        onChange={(e) => setArticleLimit(e.target.value)}
       />
       <br />
     </>
   )
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <h2>
-            Select which headlines to have in the game (choose 2 or more):
-        </h2>
-        <input
-          type="checkbox"
-          value="CNN"
-          id="CNN"
-          checked={selectedOptions.includes("CNN")}
-          onChange={handleOnChange}
-        />
-        <label htmlFor="CNN">CNN</label>
-        <input
-          type="checkbox"
-          value="Fox News"
-          id="FoxNews"
-          checked={selectedOptions.includes("Fox News")}
-          onChange={handleOnChange}
-        />
-        <label htmlFor="FoxNews">Fox News</label>
-        <input
-          type="checkbox"
-          value="Mother Jones"
-          id="MotherJones"
-          checked={selectedOptions.includes("Mother Jones")}
-          onChange={handleOnChange}
-        />
-        <label htmlFor="MotherJones">Mother Jones</label>
-        <input
-          type="checkbox"
-          value="Breitbart"
-          id="Breitbart"
-          checked={selectedOptions.includes("Breitbart")}
-          onChange={handleOnChange}
-        />
-        <label htmlFor="Breitbart">Breitbart</label>
-        <input
-          type="checkbox"
-          value="NY Times"
-          id="NYTimes"
-          checked={selectedOptions.includes("NY Times")}
-          onChange={handleOnChange}
-        />
-        <label htmlFor="NYTimes">NY Times</label>
-        <br />
-        <button type="button" onClick={() => setShowAdditionalOptions(!showAdditionalOptions)}>
-          {showAdditionalOptions ? "Hide additional options" : "Show additional options"}
-        </button>
+    <>
+      <h2>
+          Select which headlines to have in the game (choose 2 or more):
+      </h2>
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="mb-3">
+          <Form.Check
+            type="checkbox"
+            label="CNN"
+            value="CNN"
+            checked={selectedOptions.includes("CNN")}
+            onChange={handleOnChange}
+          />
+          <Form.Check
+            type="checkbox"
+            label="Fox News"
+            value="Fox News"
+            checked={selectedOptions.includes("Fox News")}
+            onChange={handleOnChange}
+          />
+          <Form.Check
+            type="checkbox"
+            label="Mother Jones"
+            value="Mother Jones"
+            checked={selectedOptions.includes("Mother Jones")}
+            onChange={handleOnChange}
+          />
+          <Form.Check
+            type="checkbox"
+            label="Breitbart"
+            value="Breitbart"
+            checked={selectedOptions.includes("Breitbart")}
+            onChange={handleOnChange}
+          />
+          <Form.Check
+            type="checkbox"
+            label="NY Times"
+            value="NY Times"
+            checked={selectedOptions.includes("NY Times")}
+            onChange={handleOnChange}
+          />
+        </Form.Group>
+        <Form.Group>
+          <Button className="mb-3" variant="secondary" type="button" onClick={() => setShowAdditionalOptions(!showAdditionalOptions)}>
+            {showAdditionalOptions ? "Hide additional options" : "Show additional options"}
+          </Button>
+        </Form.Group>
         {showAdditionalOptions && additionalOptions}
-        <br />
-        <button type="submit">Start Game</button>
-      </form>
-    </div>
+        <Form.Group>
+          <Button variant="primary" type="submit">Start Game</Button>
+        </Form.Group>
+      </Form>
+    </>
   )
 }
 
