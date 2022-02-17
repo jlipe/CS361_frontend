@@ -6,7 +6,7 @@ const HeadlineQuestion = ({headline, potentialAnswers, onSubmit}) => {
 
   const renderedOptions = potentialAnswers.map(option => {
     return(
-      <Form.Check type="radio" value={option} label={option} onChange={() => setCurrentSelection(option)} checked={currentSelection === option} />
+      <Form.Check key={option} type="radio" value={option} label={option} onChange={() => setCurrentSelection(option)} checked={currentSelection === option} />
     )
   })
 

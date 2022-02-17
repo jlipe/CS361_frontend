@@ -33,10 +33,10 @@ const HeadlineGame = () => {
 
   const handleAnswerSubmit = (answer) => {
     if (answer === headlines[currentQuestionIndex].source) {
-      alert("correct")
+      alert("Correct")
       setNCorrect(nCorrect + 1)
     } else {
-      alert("Not correct")
+      alert("Incorrect")
     }
     if (currentQuestionIndex + 1 === headlines.length) {
       setGameState("results")
