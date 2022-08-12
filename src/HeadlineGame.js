@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import HeadlineOptions from './HeadlinesOptions'
 import HeadlineQuestion from './HeadlineQuestion'
 import ResultPage from './ResultPage'
+import { Button } from 'react-bootstrap'
 import axios from 'axios'
 
 const HeadlineGame = () => {
@@ -15,6 +16,15 @@ const HeadlineGame = () => {
     const response = await axios.get("https://s9goa8paxj.execute-api.us-east-1.amazonaws.com/headlines/quiz", { params: params })
     const headlines = response.data
     return headlines
+  }
+
+  const resetGame = async () => {
+    if (window.confirm("Are you sure you want to reset your game?")) {
+      setGameState("options")
+      setNCorrect(0)
+      setCurrentQuestionIndex(-1)
+      setOptions({})
+    }
   }
 
   const handleStartGame = async (options) => {
@@ -47,6 +57,7 @@ const HeadlineGame = () => {
 
   return (
     <>
+      <Button variant="danger" onClick={() => resetGame()}>Reset Game</Button>
       <h1>
         Headline Game
       </h1>

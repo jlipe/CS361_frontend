@@ -1,9 +1,22 @@
+import { Container } from "react-bootstrap";
+
 const AboutPage = () => {
   return (
-    <div>
-      This is an app that I made for CS 361 (Software Engineering I) at Oregon State University. This application allows a user to play different types of quiz games.
-    </div>
-  )
-}
+    <Container>
+      <div>
+        Source code for the API microservice:{" "}
+        <a href="https://github.com/jlipe/361_serverless_service">
+          https://github.com/jlipe/361_serverless_service
+        </a>
+      </div>
+      <div>
+        Source code for the frontend:{" "}
+        <a href="https://github.com/jlipe/CS361_frontend">
+        https://github.com/jlipe/CS361_frontend
+        </a>
+      </div>
+    </Container>
+  );
+};
 
-export default AboutPage
+export default AboutPage;
